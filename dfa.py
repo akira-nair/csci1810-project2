@@ -16,6 +16,19 @@ class DFA():
     transitions = {}
     start = ""
     accept = []
+    def render(self, file):
+        out = \
+        "digraph dfa {\n"+self.unpack_string()+"}"
+        with open(file, 'w') as f:
+            f.write(out)
+        pass
+    def unpack_string(self):
+        out = ""
+        for t in self.transitions:
+            out += f"\t{t[0]} -> {self.transitions[t]} [label = \"{t[1]}\"]\n"""
+        for s in self.accept:
+            out += f"\t{s}[peripheries = 2]\n"
+        return out
 
 def construct_DFA(pattern):
     ff = failure_function(pattern)
@@ -24,6 +37,7 @@ def construct_DFA(pattern):
     dfa.states = range(pattern_len+1)
     dfa.alphabet = ["A", "C", "G", "T"]
     dfa.accept = [dfa.states[pattern_len]]
+    dfa.start = 0
     for j in range(1, pattern_len + 1):
         dfa.transitions[(j-1, pattern[j-1])] = j
     for a in dfa.alphabet:
@@ -33,14 +47,15 @@ def construct_DFA(pattern):
         print(j)
         for a in dfa.alphabet:
             if a != pattern[j]:
-                dfa.transitions[(j-1, a)] = dfa.transitions[ff[j], a]
-    #For j = 1 to l, for each a ∈ Σ and a ̸= pj+1, we have δ(j, a) = δ(f(j), a).
-    # For each a ∈ Σ, a ̸= p1, we have δ(0, a) = 0.
-    # For j = 1 to l, we have δ(j − 1, pj) = j.
+                print(dfa.transitions)
+                dfa.transitions[(j, a)] = dfa.transitions[ff[j], a]
+    # For j = 1 to l, for each a ∈ Σ and a ̸= pj+1, we have δ(j, a) = δ(f(j), a).
     print(dfa.transitions)
+    return dfa
 
 def main():
-    construct_DFA("AGGT")
+    dfa = construct_DFA("AGGAGA")
+    dfa.render("out.dot")
 
 if __name__ == "__main__":
     main()
