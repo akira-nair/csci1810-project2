@@ -4,4 +4,4 @@
 # The one argument will be the path (absolute or relative) to the sequence file.
 # You'll need to edit this file for the language of your choosing.
 # Come to office hours if you need additional clarification.
-python kmp.py ${1} 
+python3 kmp.py ${1} 

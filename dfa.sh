@@ -5,4 +5,4 @@
 # to the sequence file and the name of the .dot file produced.
 # You'll need to edit this file for the language of your choosing.
 # Come to office hours if you need additional clarification.
-python dfa.py ${1} ${2}
+python3 dfa.py ${1} ${2}

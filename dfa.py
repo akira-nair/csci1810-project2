@@ -6,12 +6,12 @@ Contact     :   akira_nair@brown.edu
 Description :   Constructs a DFA that pattern-matches a string
 '''
 
-from dataclasses import dataclass
+# from dataclasses import dataclass
 from kmp import failure_function
 import sys
 
 ALPHABET = ["A", "C", "G", "T"]
-@dataclass
+# @dataclass
 class DFA():
     states = []
     alphabet = []
@@ -27,6 +27,8 @@ class DFA():
     def unpack_string(self):
         out = ""
         for t in self.transitions:
+            if self.transitions[t] == 0:
+                continue
             out += f"\t{t[0]} -> {self.transitions[t]} [label = \"{t[1]}\"]\n"""
         for s in self.accept:
             out += f"\t{s}[peripheries = 2]\n"
@@ -37,7 +39,7 @@ def construct_DFA(pattern):
     pattern_len = len(pattern)
     dfa = DFA()
     dfa.states = range(pattern_len+1)
-    dfa.alphabet = ALPHABET
+    dfa.alphabet = list(set(pattern))
     dfa.accept = [dfa.states[pattern_len]]
     dfa.start = 0
     for j in range(1, pattern_len + 1):

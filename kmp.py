@@ -50,7 +50,7 @@ def kmp(pattern, text):
                 current_ind += mismatch - ff_val
     if len(matches) > 0:
         return matches
-    return matches
+    return -1
 def read_file(filepath):
     with open(filepath) as f:
         text = f.readline().strip()
@@ -60,7 +60,6 @@ def read_file(filepath):
 
 def main(argv):
     pattern, text = read_file(argv[0])
-    print(pattern, text)
     print(kmp(pattern=pattern, text=text))
 
 if __name__=='__main__':

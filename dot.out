@@ -1,0 +1,9 @@
+digraph dfa {
+	0 -> 1 [label = "C"]
+	1 -> 2 [label = "C"]
+	2 -> 3 [label = "T"]
+	0 -> 0 [label = "T"]
+	1 -> 0 [label = "T"]
+	2 -> 2 [label = "C"]
+	3[peripheries = 2]
+}
