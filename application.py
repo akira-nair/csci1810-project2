@@ -42,7 +42,9 @@ for text in texts:
         matches = kmp.kmp(patterns[pattern], texts[text])
         n_matches = len(matches)
         len_text = len(texts[text])
+
         freq = round(n_matches/len_text * 1000, 2)
+        freq = round(n_matches)
         print(f"{n_matches} were found. Freq: {freq}")
         if pattern == "GROUP_1":
             group_1.append(freq)

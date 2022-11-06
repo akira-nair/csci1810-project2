@@ -1,33 +1,38 @@
 #!/usr/bin/env python
-'''
+"""
 File        :   kmp.py
 Author      :   Akira Nair
 Contact     :   akira_nair@brown.edu
 Description :   Finds a pattern within a string
-'''
+"""
 import sys
 
-def failure_function(pattern):
+
+def failure_function(pattern: str) -> dict:
     f = {}
     f[1] = 0
     i = 0
-    for j in range(2, len(pattern)+1):
-        i = f[j-1]
-        while pattern[j-1]!=pattern[i] and i>0:
+    for j in range(2, len(pattern) + 1):
+        i = f[j - 1]
+        while pattern[j - 1] != pattern[i] and i > 0:
             i = f[i]
-        if pattern[j-1]!=pattern[i] and i==0:
+        if pattern[j - 1] != pattern[i] and i == 0:
             f[j] = 0
         else:
-            f[j] = i+1
+            f[j] = i + 1
     return f
 
-def match(pattern, text_substring):
+
+def match(pattern: str, text_substring: str) -> int:
     for i, symbol in enumerate(pattern):
         if symbol != text_substring[i]:
-            return i+1
+            return i + 1
     return 0
 
-def kmp(pattern, text):
+
+def kmp(pattern: str, text) -> int or list:
+    if len(pattern) == 0 or len(text) == 0:
+        return -1
     ff = failure_function(pattern)
     pattern_length = len(pattern)
     text_length = len(text)
@@ -36,8 +41,8 @@ def kmp(pattern, text):
     while True:
         if current_ind + pattern_length > text_length:
             break
-            
-        mismatch = match(pattern, text[current_ind:current_ind+pattern_length])
+
+        mismatch = match(pattern, text[current_ind : current_ind + pattern_length])
         if mismatch == 0:
             matches.append(current_ind)
             ff_val = ff[pattern_length]
@@ -51,7 +56,9 @@ def kmp(pattern, text):
     if len(matches) > 0:
         return matches
     return -1
-def read_file(filepath):
+
+
+def read_file(filepath: str):
     with open(filepath) as f:
         text = f.readline().strip()
         pattern = f.readline().strip()
@@ -62,12 +69,9 @@ def main(argv):
     pattern, text = read_file(argv[0])
     print(kmp(pattern=pattern, text=text))
 
-if __name__=='__main__':
+
+if __name__ == "__main__":
     main(sys.argv[1:])
-
-
-
-
 
 
 """
