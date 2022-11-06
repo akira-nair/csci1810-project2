@@ -10,6 +10,7 @@ from dataclasses import dataclass
 from kmp import failure_function
 import sys
 
+ALPHABET = ["A", "C", "G", "T"]
 @dataclass
 class DFA():
     states = []
@@ -36,7 +37,7 @@ def construct_DFA(pattern):
     pattern_len = len(pattern)
     dfa = DFA()
     dfa.states = range(pattern_len+1)
-    dfa.alphabet = ["A", "C", "G", "T"]
+    dfa.alphabet = ALPHABET
     dfa.accept = [dfa.states[pattern_len]]
     dfa.start = 0
     for j in range(1, pattern_len + 1):
