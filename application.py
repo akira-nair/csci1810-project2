@@ -41,15 +41,17 @@ for text in texts:
         print(f"Searching pattern {pattern} in {text}")
         matches = kmp.kmp(patterns[pattern], texts[text])
         n_matches = len(matches)
-        print(f"{n_matches} were found.")
+        len_text = len(texts[text])
+        freq = round(n_matches/len_text * 1000, 2)
+        print(f"{n_matches} were found. Freq: {freq}")
         if pattern == "GROUP_1":
-            group_1.append(n_matches)
+            group_1.append(freq)
         elif pattern == "GROUP_2_A":
-            group_2_a.append(n_matches)
+            group_2_a.append(freq)
         elif pattern == "GROUP_2_B":
-            group_2_b.append(n_matches)
+            group_2_b.append(freq)
         else:
-            group_3.append(n_matches)
+            group_3.append(freq)
 
 # plot results (code referenced from matplotlib docs)
 x = np.arange(len(strain))  # the label locations
@@ -60,7 +62,7 @@ rects1 = ax.bar(x - 0.3, group_1, width, label='GROUP 1')
 rects2 = ax.bar(x - 0.1, group_2_a, width, label='GROUP 2 (Heptameric)')
 rects3 = ax.bar(x + 0.1, group_2_b, width, label='GROUP 2 (Hexamer)')
 rects4 = ax.bar(x + 0.3, group_3, width, label='GROUP 3')
-ax.set_ylabel('# Matches')
+ax.set_ylabel('Matches per KB')
 ax.set_xlabel('Strain')
 ax.set_title('Number of matches of CS motifs for different coronavirus strains')
 # set three ticks

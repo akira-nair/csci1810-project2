@@ -1,6 +1,6 @@
 # User-specified ignore files
 *.dot
-
+*.pdf
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
