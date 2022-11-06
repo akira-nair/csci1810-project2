@@ -1,3 +1,7 @@
+# User-specified ignore files
+*.dot
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -127,3 +131,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+out.dot

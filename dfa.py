@@ -8,6 +8,7 @@ Description :   Constructs a DFA that pattern-matches a string
 
 from dataclasses import dataclass
 from kmp import failure_function
+import sys
 
 @dataclass
 class DFA():
@@ -49,15 +50,18 @@ def construct_DFA(pattern):
             if a != pattern[j]:
                 print(dfa.transitions)
                 dfa.transitions[(j, a)] = dfa.transitions[ff[j], a]
-    # For j = 1 to l, for each a ∈ Σ and a ̸= pj+1, we have δ(j, a) = δ(f(j), a).
-    print(dfa.transitions)
+    # print(dfa.transitions)
     return dfa
 
-def main():
-    dfa = construct_DFA("AGGAGA")
-    dfa.render("out.dot")
+def read_file(filepath):
+    with open(filepath) as f:
+        return f.readline().strip()
+
+def main(argv):
+    dfa = construct_DFA(read_file(argv[0]))
+    dfa.render(argv[1])
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
 
 
